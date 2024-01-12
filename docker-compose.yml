@@ -1,0 +1,29 @@
+services:
+  mysql-container:
+    container_name: dog-mysql-db
+    image: mysql
+    environment:
+       MYSQL_ROOT_PASSWORD: password
+       MYSQL_DATABASE: pets
+    ports:
+      - "3306:3306"
+    networks:
+      - spring-boot-network
+    volumes:
+      - "./sql-scripts:/docker-entrypoint-initdb.d"
+  spring-boot-app:
+    container_name: spring-demo
+    image: spring/demo
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - mysql-container
+
+
+networks:
+  spring-boot-network:
+    driver: bridge
+
+
