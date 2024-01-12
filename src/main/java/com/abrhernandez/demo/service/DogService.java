@@ -31,6 +31,7 @@ public class DogService implements DogApi {
 
     @Override
     public List<Dog> getAll() {
-         return dogRepository.findAll();
+        logger.info("Getting all dogs");
+        return dogRepository.findAll();
     }
 }
